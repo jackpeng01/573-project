@@ -1,3 +1,6 @@
 wm811k_data
 wm811k-wafer-map.zip
 wm811k_data/LSWMD.pkl
+
+data/LSWMD_onlyLabelData.csv
+
