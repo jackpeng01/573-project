@@ -1,5 +1,5 @@
-from tensorflow.keras import layers, models, Input
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras import layers, models, Input  # type: ignore
+from tensorflow.keras.preprocessing.image import ImageDataGenerator  # type: ignore
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 img_size = (128, 128)  # Target image size
 batch_size = 32  # Batch size for training/validation
 epochs = 10  # Number of training epochs
-data_dir = "/Users/jackp/573/final/data"  # Directory with subfolders 'defective' and 'non_defective'
+data_dir = "data"  # Directory with subfolders 'defective' and 'non_defective'
 
 # --- Prepare Data Generators for Training and Validation ---
 # For training the autoencoder, we use only the 'non_defective' images.

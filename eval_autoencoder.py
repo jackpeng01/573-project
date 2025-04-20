@@ -8,11 +8,11 @@ from sklearn.metrics import (
 )
 import numpy as np
 import matplotlib.pyplot as plt
-import time  # For timing key operations
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.losses import MeanSquaredError
-from tensorflow.keras.utils import register_keras_serializable
+import time  # For timing key operations.
+from tensorflow.keras.models import load_model  # type: ignore
+from tensorflow.keras.preprocessing.image import ImageDataGenerator  # type: ignore
+from tensorflow.keras.losses import MeanSquaredError  # type: ignore
+from tensorflow.keras.utils import register_keras_serializable  # type: ignore
 
 
 # Define and register a custom mse function so that the model can find it.
@@ -59,9 +59,8 @@ def load_test_data(data_dir, img_size, batch_size, color_mode="grayscale"):
         imgs, labels = next(test_gen)
         images_list.append(imgs)
         labels_list.append(labels)
-        print(
-            f"Processed batch {i + 1}/{num_batches}"
-        )  # Debug: Indicates progress through the generator
+        # Debug: Indicates progress through the generator
+        print(f"Processed batch {i + 1}/{num_batches}")
 
     images = np.vstack(images_list)
     labels = np.concatenate(labels_list)
@@ -100,12 +99,12 @@ def main():
     except Exception as e:
         print("Error loading model with custom_objects:")
         print("Exception:", e)
-        return  # Exit if the model cannot be loaded
+        return  # Exit if the model cannot be loaded.
 
     print(f"Loaded autoencoder model from {model_path}")
 
     # --- Load Test Data ---
-    # Timer for loading data
+    # Timer for loading data.
     start_time = time.time()
     test_images, test_labels = load_test_data(
         data_dir, img_size, batch_size, color_mode=color_mode
@@ -116,7 +115,7 @@ def main():
     print(f"Test images shape: {test_images.shape}")
 
     # --- Compute Reconstruction Errors ---
-    # Timer for model prediction
+    # Timer for model prediction.
     start_time = time.time()
     recon_errors = compute_reconstruction_error(autoencoder, test_images)
     prediction_time = time.time() - start_time
@@ -160,19 +159,16 @@ def main():
     precision = precision_score(test_labels, predicted_labels)
     recall = recall_score(test_labels, predicted_labels)
     f1 = f1_score(test_labels, predicted_labels)
-    auc = roc_auc_score(
-        test_labels, recon_errors
-    )  # Using reconstruction error as score
+    # Using reconstruction error as score
+    auc = roc_auc_score(test_labels, recon_errors)
+    clss_report = (classification_report(test_labels, predicted_labels),)
 
     print("Test Accuracy:", accuracy)
     print("Precision:", precision)
     print("Recall:", recall)
     print("F1-Score:", f1)
     print("AUC:", auc)
-    print(
-        "\nClassification Report:\n",
-        classification_report(test_labels, predicted_labels),
-    )
+    print("\nClassification Report:\n", clss_report)
 
 
 if __name__ == "__main__":
