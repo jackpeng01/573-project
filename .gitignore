@@ -3,4 +3,5 @@ wm811k-wafer-map.zip
 wm811k_data/LSWMD.pkl
 
 data/*
+*.h5
 
